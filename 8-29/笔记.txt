@@ -1,0 +1,70 @@
+8-28:
+    git clone 版本库地址 //把版本库从远程复制到本地 
+    git remote -v //查看远程版本库地址 
+    git status //查看git状态 
+    git add .修改的文件 // .：全部文件 =>某个文件  (从红色状态变绿)
+    git commit -m '提交的描述信息' 
+    git push //提交远程版本库 
+    Git pull //拉取远程版本库
+    git reset HEAD <file>... //撤销暂存的修改
+    git checkout <file> // 撤销commit   // 切换分支
+----------------------------------------------------------------------------------------------------
+
+8-29:
+    @click  v-on:click.stop = "指令表达式 1+1  2指令的value"
+        v-on : 指令名
+        click: 指令参数
+        stop : 指令修饰符(修饰符可以链式使用)
+            
+    click修饰符
+        .stop === stopPropagation
+        .prevent === preventDetault
+        .capture 添加事件时使用事件捕获模式
+        .once 事件只执行一次
+        .self  点击自身
+
+        .capture和.self的区别：
+            .capture先执行父级的函数，再执行子级的触发函数(一般用法),即是给元素添加一个监听器,当元素发生冒泡时,先触发带有该修饰符的元素.若有多个该修饰符,则由外而内触发.
+            .self是只执行子级本身的函数
+
+    model修饰符
+        v-model  
+        .number   转换为数字类型
+        .lazy  默认input事件触发、  =》 change触发
+        .trim  格式、把前后空格去掉
+
+    键盘修饰符
+        数字     keyCode
+        .enter   keyName
+
+    事件对象 ： 用$event来传递
+
+    计算属性缓存(computed)和方法(methods)的区别:
+        计算属性是基于它们的响应式依赖进行缓存的只在相关响应式依赖发生改变时它们才会重新求值.相比之下，每当触发重新渲染时,调用方法总是会再次执行函数
+
+    computed:
+        computed是个函数的返回值,必须有data参与,一定要注意使用场景
+        computed直接定义函数是get的一个简写形式,是由get和set两个钩子函数定义的(set有一个参数来接收computed修改的值)
+
+        computed展开写法:
+            he:{
+                get(){
+                    return 表达式
+                    eg:return this.jiashu1 + this.jiashu2
+                },
+                set(value){
+                    console.log(value)
+                    eg:this.jiashu1 = value
+                }
+            }
+
+    watch:
+        watch的监听直接定义函数其实是handler简写  
+        he:{
+            handler(newvalue,oldvalue){
+                console.loog('he change)
+            }
+        }
+        如果要监听对象的某个key值  obj.key
+        deep:true属性能深度检测到对象的改变,默认false
+        vue的实例方法$watch是没有全局方法的  Vue.$watch(expOrFn,callback,[options])
