@@ -42,6 +42,21 @@
     计算属性缓存(computed)和方法(methods)的区别:
         计算属性是基于它们的响应式依赖进行缓存的只在相关响应式依赖发生改变时它们才会重新求值.相比之下，每当触发重新渲染时,调用方法总是会再次执行函数
 
+    var a = Vue.set(arr,0,'xyz');
+    Vue.set = this.$set
+    全局的set方法    
+        Vue.set(vm.obj, key, newValue)；
+    实例的$set方法  
+        this.$set(this.arr,下标,newdata)
+
+    splice();   参数：起始位置，长度，value
+
+    Object.assign    es6新增，对象深拷贝
+        vm.obj = Object.assign({}, vm.obj, newObj);
+    1、复制时新创建的对象
+    2、3、要合并在一起的对象
+    
+
     computed:
         computed是个函数的返回值,必须有data参与,一定要注意使用场景
         computed直接定义函数是get的一个简写形式,是由get和set两个钩子函数定义的(set有一个参数来接收computed修改的值)
