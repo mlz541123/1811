@@ -77,7 +77,7 @@
         watch的监听直接定义函数其实是handler简写  
         he:{
             handler(newvalue,oldvalue){
-                console.loog('he change)
+                console.log(he)
             }
         }
         如果要监听对象的某个key值  obj.key
