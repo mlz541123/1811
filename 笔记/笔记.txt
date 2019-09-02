@@ -129,3 +129,38 @@
                     el.style.color= binding.value;
                 }
             });    
+----------------------------------------------------------------------------------------------
+9-2:
+    filter:
+        过滤一条data、computed(数据)
+        Vue.filter   Vue.directive
+        过滤器  | （管道符）
+        computed 与 filter 的区别
+        filter可以动态传入过滤内容
+        filter的使用场景： 如果大量数据需要同一种规则改变的话，使用
+        filter使用的地方
+        {{}}   /  动态bind的引号里
+        filter可以传参
+        data | filtername('filterArg1','filterArg2',...)
+        接受参数就是通过filter的第二参数，以此类推
+        第一个参数是要过滤的值
+        filter可以串联使用（链式调用）
+        data | filtername() | filtername 
+        eg:
+        filters: {
+            CNuppercase: function (val) {
+                var CN_list = ['', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+                var CN_lisp = ['元整', '拾', '佰', '仟', '万', '拾', '佰', '仟', '亿'];
+                var str = val.toString();
+                var CN = '';
+                for (var i = 0; i < str.length; i++) {
+                    CN += CN_list[Number(str.charAt(i))] + CN_lisp[str.length - i - 1];
+                }
+                return CN;
+            }
+        },
+
+        Vue.filter('test',function(val,arg1){
+            return val+1;
+        });
+-------------------------------------------------------------------------------------------------------                   
