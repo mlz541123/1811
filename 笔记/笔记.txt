@@ -135,7 +135,15 @@
         过滤一条data、computed(数据)
         Vue.filter   Vue.directive
         过滤器  | （管道符）
-        computed 与 filter 的区别
+        computed 与 filter 的异同：
+                computed:
+                1.不能传参,只能监听预先设置好的值;
+                2.值会缓存,在我们要监听的数据没有变化的时候，是不会再去执行对象相应的数据的(性能比较好)
+                filters:
+                1.将返回数据进行处理后返回处理结果的简单函数
+                2.值不会缓存,会重新执行里面的操作
+
+                同:所得到的值都需要return出去
         filter可以动态传入过滤内容
         filter的使用场景： 如果大量数据需要同一种规则改变的话，使用
         filter使用的地方
