@@ -40,9 +40,6 @@
 
     事件对象 ： 用$event来传递
 
-    计算属性缓存(computed)和方法(methods)的区别:
-        计算属性是基于它们的响应式依赖进行缓存的只在相关响应式依赖发生改变时它们才会重新求值.相比之下，每当触发重新渲染时,调用方法总是会再次执行函数
-
     var a = Vue.set(arr,0,'xyz');
     Vue.set = this.$set
     全局的set方法    
@@ -57,6 +54,9 @@
     1、复制时新创建的对象
     2、3、要合并在一起的对象
     vm.obj = Object.assign({}, vm.obj, newObj);
+
+    计算属性缓存(computed)和方法(methods)的区别:
+        计算属性是基于它们的响应式依赖进行缓存的只在相关响应式依赖发生改变时它们才会重新求值.相比之下，每当触发重新渲染时,调用方法总是会再次执行函数
         
     computed:   
         computed 是个函数返回值 必需有data参与 一定注意使用场景
@@ -150,4 +150,67 @@ binding的参数：name arg modifiers expression value
                 el.setAttribute(binding.rawName,'')
             }
         });
-        
+
+-------------------------------------------------------------------------------------------------------
+
+    Vue.filter 过滤
+
+    过滤一条data、computed
+    Vue.filter   Vue.directive
+    过滤器  | （管道符）
+        computed 与 filter 的区别
+    filter可以动态传入过滤内容
+    filter的使用场景： 如果大量数据需要同一种规则改变的话使用
+        Vue.filter('phone',function(val,arg1){
+            return val + (arg1 ||'****') + 678;
+        });
+
+    filter使用的地方
+    {{}}   /  动态bind的引号里 
+        1. {{data | filter}}
+        2. :abc="data | filter"
+
+    filter可以传参
+    data | filtername('filterArg1','filterArg2',...)
+    接受参数就是通过filter的第二参数，依次类推
+    第一个参数是要过滤的值
+
+    Vue.component
+    组件注册
+    Vue.component('test',{
+        template:`<h1>{{title}}</h1>`,
+        data(){
+            return {
+                msg:this.title
+            }
+        },
+        props:['title'],
+    });
+
+    组件之间的传值
+        父组件与子组件
+            谁使用了组件，谁就是父组件，被使用的就是子组件。
+        父组件向子组件传值
+            1、子组件需要同意： props
+            2、父组件如何通过props传入值
+        props: ['自定义属性名']
+
+        子组件怎么告诉父组件做了什么?
+            $emit(自定义事件)
+            1、子组件向父组件发送自定义事件
+            2、父组件需要监听子组件的事件
+        $emit('自定义事件名',事件参数) 
+    
+    $event 来接受事件参数
+    v-model (语法糖)  ==   :value + @input
+
+-------------------------------------------------------------------------------------------------
+
+    组件插槽 slot
+    具名插槽 slot  name
+        v-slot:插槽名 （template or component）
+    默认插槽，未指定名字的内容都会统一放入到默认插槽里
+    默认插槽 默认名字：default
+
+    动态组件  <component> 
+    <component> 通过is=“组件名||组件的选项对象”属性指向组件
