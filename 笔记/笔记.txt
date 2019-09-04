@@ -172,3 +172,62 @@
             return val+1;
         });
 -------------------------------------------------------------------------------------------------------                   
+9-3:
+    组件：
+        组件之间的传值
+        父组件与子组件
+        谁使用了组件，谁就是父组件，被使用的就是子组件。
+        父组件向子组件传值
+        1、子组件需要同意： props
+        2、父组件如何通过props传入值
+        子组件怎么告诉父组件做了什么?
+        $emit(自定义事件)
+        1、子组件向父组件发送自定义事件
+        2、父组件需要监听子组件的事件
+        props: ['自定义属性名']
+        $emit('自定义事件名',事件参数)     
+        $event 来接受事件参数
+
+        eg:
+            <div id="app">
+                <test :title="1+1+1" :value="10" @jiajia="alert($event)"></test>
+            </div>
+
+            Vue.component('test',{
+                template:`<h1>
+                {{title}}
+                <button @click="jia">btn{{msg}}</button>
+                </h1>`,
+                data(){
+                    return {
+                        msg:this.value
+                    }
+                },
+                props:['title','value'],
+                methods: {
+                    jia(){
+                        this.msg ++;
+                        this.$emit('jiajia',this.msg);
+                    },
+                    input(){
+                        this.$emit('input')
+                    }
+                },
+            });
+    组件插槽：
+        组件插槽 slot
+        具名插槽 slot  name
+        v-slot:插槽名 （template or component）
+        默认插槽，未指定名字的内容都会统一放入到默认插槽里
+        默认插槽 默认名字：default
+        动态组件  <component> 
+        <component> 通过is=“组件名||组件的选项对象”属性指向组件
+        eg:
+            Vue.component('test',{
+                template: "#test",
+                data() {
+                    return {
+                        msg:'0000000'
+                    }
+                },
+            });
