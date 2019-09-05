@@ -1,0 +1,201 @@
+   
+    vue两个核心: 1、数据驱动 利用object.definedProperty和存储属性 get和set  保证数据和视图的一致性
+                2、组件系统  模板 初始数据 方法 生命周期
+   
+    :之前的叫指令名字
+    :之后的叫指令参数
+    .之后的指令的修饰符修饰指令参数
+    attachEvent()之后采用冒泡形式来执行监听  有点类似于addEventListener()的第三个参数 true
+
+
+    事件冒泡:逐级向上传播 document<html<body<div
+    事件捕获:document>html>body>div
+    @click.prevent   阻止默认事件  列如 a标签跳转 ==>preventDefault()
+    @click.stop      阻止冒泡  阻止事件向上级DOM传递     stop ==>event.StopPropagation()
+    @click.capture   捕获冒泡，即有冒泡发生时，有该修饰符的dom元素会先执行，如果有多个，先从外到内依次执行，然后                  再按自然顺序执行触发的事件  ====> addEventListener()的第三个参数 true       true 捕获  false 冒泡 
+    @click.self：将事件绑定到自身，只有自身才能触发，通常用于避免冒泡事件的影响 ==> event.target
+    @click.once：设置事件只能触发一次，比如按钮的点击等 ==>执行一次监听事件 执行完以后 removeEventListener
+    @click.passive 执行默认方法
+
+    watch+computed---------------------------------------------------------------------------------------
+
+    computed:{
+        必须有 return  必须是操作 data里的值
+        两个钩子函数  get() 和 set()  并且set有一个参数来获取set值
+        computed本身是一个对象
+    }
+    computed和methods区别{
+        computed只在初始化时被调用  methods会在数据变化时被调用 
+        computed具有缓存性，页面重新渲染值不变化,计算属性会立即返回之前的计算结果，而不必再次执行函数
+    }
+    watch:{             当监听一个对象改变时 普通的watch无法监听到对象内部属性的改变  只有data中的数据才能够被监听到
+                        此时就 deep:true    
+                        是观察的动作.020
+                        无缓存性，页面重新渲染时值不变化也会执行
+
+        firstName(newName,oldName){
+            
+        },
+        '要监听的对象':{handler(修改后,修改前){}}
+    }
+    vm.$watch(function(){
+        要监听的值
+    },function(){
+        监听后要执行什么东西
+    },{
+        deep:true
+
+    })
+
+    实例方法:{
+        
+    }
+    debugger 代码卡断点
+
+    自定义指令-------------------------------------------------------------------------------------------
+
+    全局注册: directive
+        Vue.directive('指令的名称不带v',{       全局的在Vue里注册 可以全局使用
+            bind(el,binding){
+                el==> 指令所绑定的元素 可以直接操作DOM
+                binding 我的指令信息
+                        binding.name ==>指令名不包括前缀v
+                        binding.value ==>指令的绑定值 如:v-directive="1 + 1", value 的值是 2
+                        binding.expression==> 指令的表达式或变量名 v-directive="1 + 1", expression 的值是 1+1
+                        binding.arg ==> 指令的参数 :冒号 之后的 如 v-directive:foo, arg 的值是 "foo"
+                        binding.modifiers ==>指令的修饰符 .点 之后的  如 v-directive:foo.top modifiers 的值是 {foo:true,too:true} 可以判断 top 
+            },
+            inserted(){被绑元素插入父节点时调用}        相当于生命收起的 created
+            update(){},                                               mounted
+            unbind(){只调用一次,指令与元素解绑时调用} 
+        })
+    局部注册: directives
+        var vm = new Vue({
+            el:'#box',
+            directives:{
+                '指令名称':{
+                    bind(el,binding){
+
+                    }
+                }
+            }
+        })
+
+
+
+    过滤器----------------------------------------------------------------------------------------------
+
+    Vue.filter('过滤器名称',function(data){
+        
+    })
+                | 管道符
+    {{xxx | phone}}
+    var vm = new Vue({
+        el:'#box',
+        data:{
+            xxx:''
+        },
+        filters:{
+            phone(value) value 就是data里定义的值
+        }
+    })
+
+
+    组件 -------------------------------------------------------------------------------------------------
+
+
+    全局组件    
+            v-model ==> :value + @input
+                    
+            <div id="box>
+                <lee></lee>
+
+                        <slot name="name"></slot> 插槽
+
+            <div>
+            <template>
+                <div>
+                    <slot class="name"></slot>
+                </div>
+            </template>
+            v-bind 通过绑定可以把父组件的东西传入到子组件中
+            props:["",""] 子组件接收父组件
+            v-on
+            Vue.component('lee',function(){        
+                template:'<div></div>',     template==>模板属性展示HTML结构的
+                props:[],接受box里面的 值
+                data(){
+                    return {
+                        必须return  一次更新
+                    }
+                }
+                $emit() 自组建触发 外面监听的值  要触发的事件名  要传递的参数
+            })
+    
+    ---------------------------------------
+    vue-cli
+    		项目的 src 里最初的App.vue 是根实列  如果页面布局 所有的模块都要引入到 App.vue 
+    					引入方式   import 名字 from  './xxx/xxx'
+    项目执行：
+    cnpm install vue-cli -g 全局安装 vue-cli
+    vue list 查看版本号
+    vue init webpack  "项目名称"
+    cnpm install  项目依赖
+    cnpm run 项目的名字  运行项目
+
+    路由----------------------------------------------
+            1、安装、引入  vue-router.js
+            2、在模块里放置 <router-view>自定义组件
+            3、new VueRouter 实例对象==> var router
+            4、配置构建选项 routes、mode.......
+            5、把router实例注册到vue跟实例中
+
+            <router-view> 路由的组件 配置都渲染到这里面
+            <router-link to="路由连接"> 跳转路由
+
+        路由传参:
+            id匹配路由的时候用$route可以通过watch监听
+            (1):<router-link :to="{name:'路由地址',params:{参数}}"> 路由传参
+            (2):this.$router.push({
+                name:'hello',
+                params:{user:'asdpcas'}
+            }) 必须通过name 跳转
+            (3):query:
+                    地址栏 铭文传参 相当于get 把参数拼接在?后面
+                    <router-link :to="{name:'路由地址',query:{参数}}">
+                    $router.push({name:'',query:''})
+                和to是一样的
+            
+             routes 里面配置的
+             path: / 根路径 "路由地址"
+             component?: <router-view>里面渲染的东西 返回的是全局的东西   var abc =  Vue.component({})
+             name:'路面名字'
+             props:跳转路由传的参数
+             $route.fullPath
+             redirect:重定向  匹配到的地址重新跳转到另一个路由下
+             alias:罗静的别名 多个路径跳转到一个路由单个"" 多个[""]
+             children 子路由
+
+            通过方法跳转和传参
+
+            $route: 路由信息
+            $router 实例对象
+
+            
+		
+
+------------------------------------------------------\
+    
+	动画：
+	
+
+			状态A-->状态B
+			    v-enter:元素初始状态 是进入之前，元素的起始状态，此时还没有开始进入
+
+			    v-enter-to:动画结束后状态	是动画离开之后，离开的终止状态，此时元素动画已经结束了
+
+			    v-enter-active:动画过渡过程，用来定义动画时间、延迟、曲线函数
+			状态B-->状态A
+			    v-leave:返回动画执行前状态
+			    v-leave-to:返回动画执行后状态
+			    v-leave-active:返回动画过渡过程，用来定义动画时间、延迟、曲线函数
