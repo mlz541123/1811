@@ -285,4 +285,55 @@
             <template v-slot:a="b">c</template>
             b: {a:{},b:{}}    <slot name="a" :a :b></slot>
 
-        inheritAttrs:false, 是否继承属性            
+        inheritAttrs:false, 是否继承属性        
+----------------------------------------------------------------------------------------------------------------
+9-5:
+    组件的实例属性：
+        $refs: 来存储dom对象或者实例对象
+        $children 返回一个vueComponent数组
+        $parent 返回一个vueComponent节点||组件||实例
+        $root 返回vue根实例
+        $nextTick 局部的updated
+-------------------------------------------------------------------------------------------------------------------
+9-6:
+    过渡 动画:
+        过渡动画组件：<transition></transition>
+        eg:
+            <button @click="isshow = !isshow">btn</button>
+            <transition name="v">
+                <div class="box" v-show="isshow"></div>
+            </transition>
+            .v-leave{}
+            .v-leave-active{}
+            .v-leave-to{}
+            .v-enter{}
+            .v-enter-active{}
+            .v-enter-to{}
+
+
+        <transition-group></transition-group>
+            会默认生成span标签 tag设置默认标签
+            里面的子元素必须有唯一的key
+            eg:
+                <transition-group tag="ul" move  enter-active-class="rotateIn animated" leave-active-class="rotateOut animated">
+                    <li v-for="item in arr" :key="item">
+                        {{item}}
+                    </li>
+                </transition-group>
+
+                
+        vue过渡必须发生在单个元素的状态切换上
+         v-if  v-show component（动态组件） <router-view>
+        类名的定义： name + -enter enter-to enter-active
+                           -leave -leave-to -leave-active
+
+        appear  首次出现应用动画过渡
+
+        mode : 必须是两个元素在切换
+        out-in   in-out   先进后出   先出后进
+
+        duration  持续时间
+
+        第三方动画库
+
+        添加transition属性： enter-active-class  leave-active-class
