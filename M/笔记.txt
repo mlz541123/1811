@@ -214,3 +214,81 @@ binding的参数：name arg modifiers expression value
 
     动态组件  <component> 
     <component> 通过is=“组件名||组件的选项对象”属性指向组件
+
+-------------------------------------------------------------------------------------------------------------
+
+    props的参数：
+        1.type: 接收到的值的类型
+            类型： Number String Object function Array Boolean Date Symbol
+        2.default: 为该 prop 指定一个默认值 如果是array、object的话，必须是函数返回值
+        3.required: 必须传值 (true || false)
+            propC: {// 必传且是字符串
+                type: String,
+                required: true
+            }
+        4.validator: 回调函数 自定义验证函数     prop值必须匹配下列字符串中的一个
+            validator: function (value) {
+                return ['success', 'warning', 'danger'].indexOf(value) !== -1 
+            }
+
+    组件的命名规则、事件的命名规则、prop的命名规则
+        s a n fn o
+        组件的命名规则: 使用必须都是小写
+            定义： 驼峰形式、短杠形式（kebab-case或者PascalCase）
+        因为一个单词可能会跟原生dom标签冲突
+        kebab-case或者PascalCase   => 全部小写，驼峰形式就会加杠
+            ABC --> a-b-c
+
+        prop的命名规则(同上) 
+
+        事件命名 ： 必须是kebab-case形式命名，全部小写
+        Vue.component('test-abc',{
+            template:'<h1>abc</h1>'
+        })
+
+    动态绑定特性值
+        1、引用类型时，子组件中更改相应的属性会导致父组件相应属性的更改
+        2、基本类型时，子组件中更改这个属性会报错，加上.sync修饰符
+    但是：一般来说，是不建议在子组件中对父组件中传递来的属性进行操作的
+        1、基本类型值，在子组件中创建一个新的data或computed，并以传递进来的值进行初始化，之后就可以操作这个新的属性了
+        2、引用类型值，最好是对引用类型进行复制。复杂的情况，肯定应该是深复制
+        
+    在自定义组件里，不带参数的 v-bind，
+        相当于传入一个对象的所有属性
+
+
+    v-model :value + @input
+    组件里的model含义：
+        相当于把value 属性改为 prop的值
+        把input事件改为 event对应的值
+
+    非prop类型的属性:会采用覆盖策略替换掉已有的属性
+    class、style除外。 ： 采用的合并策略
+    禁用特性inheritAttrs: false
+
+    插槽作用域
+        <template v-slot:a="b">c</template>
+        b: {a:{},b:{}}    <slot name="a" :a :b></slot>
+    
+    inheritAttrs:false,  // 是否继承属性
+
+    实例方法 $watch 监听子组件
+        vm.$children[0].$watch('num')
+
+    $refs  来存储dom对象或者是vue实例对象
+    $children =》 [vueComponent]  
+    $parent   =>  VueComponent | vue实例
+    $root  =》 vue根实例
+
+    $nextTick  => 局部的update
+    data改变 》 虚拟dom改变   》 渲染到dom上  (有时间的延迟)
+    this.na = 2
+        udpate(){
+            // document.getelementById('mydiv').innnerText  =  2
+        }
+        this.$nextTick(function(){
+            // document.getelementById('mydiv').innnerText  =  2
+        })
+
+    
+    
