@@ -290,5 +290,33 @@ binding的参数：name arg modifiers expression value
             // document.getelementById('mydiv').innnerText  =  2
         })
 
+-----------------------------------------------------------------------------------------------
+
+    动态name  :name
+    
+    过渡动画组件：<transition>
+    vue过渡必须发生在单元素的状态切换上
+        v-if  v-show component（动态组件） <router-view>
+    类名的定义： name + -enter enter-to enter-active
+                        -leave -leave-to -leave-active
+
+    appear  首次出现应用动画过渡
+
+    mode : 必须是两个元素在切换
+        out-in   先出后进    in-out  先进后出
+
+    duration // 需要绑定属性
+        :duration="1000"  显性的过渡持续时间 (以毫秒计)
+        :duration="{ enter: 500, leave: 800 } 定制进入和移出的持续时间
+
+    第三方动画库
+        添加transition属性： enter-active-class  leave-active-class
+
+    transition-group  默认会生成span标签
+        children 必须有唯一的key
+        tag  设置标签 默认span
+    
+
+
     
     
