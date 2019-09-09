@@ -321,7 +321,6 @@
                     </li>
                 </transition-group>
 
-                
         vue过渡必须发生在单个元素的状态切换上
          v-if  v-show component（动态组件） <router-view>
         类名的定义： name + -enter enter-to enter-active
