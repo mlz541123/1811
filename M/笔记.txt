@@ -43,7 +43,7 @@
     var a = Vue.set(arr,0,'xyz');
     Vue.set = this.$set
     全局的set方法    
-        Vue.set(vm.obj, key, newValue)；
+        Vue.set(vm.obj, key, newValue)
     实例的$set方法  
         this.$set(this.arr,下标,newdata)
 
@@ -56,7 +56,8 @@
     vm.obj = Object.assign({}, vm.obj, newObj);
 
     计算属性缓存(computed)和方法(methods)的区别:
-        计算属性是基于它们的响应式依赖进行缓存的只在相关响应式依赖发生改变时它们才会重新求值.相比之下，每当触发重新渲染时,调用方法总是会再次执行函数
+        computed直接输出 需要return，computed有缓存的，计算只计算修改的部分，
+	    methods函数调用，methods重新计算，没有缓存的
         
     computed:   
         computed 是个函数返回值 必需有data参与 一定注意使用场景
@@ -265,12 +266,14 @@ binding的参数：name arg modifiers expression value
     非prop类型的属性:会采用覆盖策略替换掉已有的属性
     class、style除外。 ： 采用的合并策略
     禁用特性inheritAttrs: false
+        Vue.component('myTest',{
+            inheritAttrs:false, // 是否继承属性
+            template:'#test',
+        })
 
     插槽作用域
         <template v-slot:a="b">c</template>
         b: {a:{},b:{}}    <slot name="a" :a :b></slot>
-    
-    inheritAttrs:false,  // 是否继承属性
 
     实例方法 $watch 监听子组件
         vm.$children[0].$watch('num')
@@ -290,5 +293,84 @@ binding的参数：name arg modifiers expression value
             // document.getelementById('mydiv').innnerText  =  2
         })
 
+-----------------------------------------------------------------------------------------------
+
+    动态name  :name
     
+    过渡动画组件：<transition>
+    vue过渡必须发生在单元素的状态切换上
+        v-if  v-show component（动态组件） <router-view>
+    类名的定义： name + -enter enter-to enter-active
+                        -leave -leave-to -leave-active
+
+    appear  首次出现应用动画过渡
+    mode : 必须是两个元素在切换
+        out-in   先出后进    in-out  先进后出
+    duration // 需要绑定属性 使用v-bind
+        :duration="1000"  显性的过渡持续时间 (以毫秒计)
+        :duration="{ enter: 500, leave: 800 } 定制进入和移出的持续时间
+
+    第三方动画库
+        添加transition属性： enter-active-class  leave-active-class
+
+    transition 过渡单个元素
+    transition-group  过渡列表
+        children 必须有唯一的key
+        tag  设置标签 默认span
+    
+------------------------------------------------------------------------------------------------------
+
+    1、创建路由实例  
+        new VueRouter
+    2、配置路由routes
+        var ddd = {
+            template:'<h1>ddd</h1>'
+        }
+        routes: [
+            {
+                path:'/abc',
+                component:'<h1>abc</h1>'
+            },
+            {
+                path:'/ddd',
+                component:ddd
+            }
+        ]
+    3、注册路由 
+        router：router
+        简写： router,
+    4、定义router-view 来渲染匹配到的组件
+        <router-view></router-view>
+
+    vue-router是通过#锚点来模拟页面跳转的   默认：hash模式
+        histroy模式   更像真实的url地址
+
+    两种跳转方式：
+        1.通过router-link to属性来跳转
+            字符串路径 : '/abc'
+            对象：   {path: '/abc'}
+        2.编程式跳转： 实例方法： this.$router.push()
+            字符串路径 : push('/abc')
+            对象：   push({path: '/abc'})
+    
+    router实例 属性:
+        name 路由名字，可以通过name来跳转路由
+        components 可以通过name来渲染多个不同组件
+        redirect 重定向到新的地址下
+        alias： 地址的别名/ 也需要定义成路径格式
+        children 嵌套路由、组件渲染到父级router-view上，(二级路由)
+            路由path配置不需要加 /  
+
+    动态路由：
+    在path上定义 ‘:’ + 匹配的key  
+    在params上可以展示动态路由匹配到的参数
+    可以串连
+        https://www.test.com/index   小说的目录页
+        https://www.test.com/index/1
+        https://www.test.com/index/2
+
+    * 通配符   
+    路由配置是有优先级关系的（从上到下）
+    一般用于 404页面   通常放到路由配置的最下面
+
     
