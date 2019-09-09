@@ -336,3 +336,98 @@
         第三方动画库
 
         添加transition属性： enter-active-class  leave-active-class
+--------------------------------------------------------------------------------------------------------
+9-9:
+    router:
+        1、创建路由实例  new VueRouter
+        2、配置路由routes
+        3、注册路由 router：router
+        4、定义router-view 来渲染匹配到的组件
+        eg:
+            <router-link to="/abc">abc</router-link>
+            <router-link :to="{path:'/abc'}">abc</router-link>
+            <router-link to="/ddd">ddd</router-link>
+            <router-view></router-view>
+
+            var abc = {
+                template:'<h1>abc</h1>'
+            }
+            var ddd = {
+                template:'<h1>ddd</h1>'
+            }
+            var router = new VueRouter({
+                routes: [
+                    {
+                        path:'/abc',
+                        component:abc
+                    },
+                    {
+                        path:'/ddd',
+                        component:ddd
+                    }
+                ]
+            })
+
+            var vm = new Vue({
+                el:".conetnt",
+                router,
+            })
+
+        vue-router是通过#锚点来模拟页面跳转的   hash模式
+                                              histroy模式   更像真实的url地址
+
+        通过router-link to属性来跳转
+            字符串路径 : '/abc'
+            对象：   {path: '/abc'}
+        编程式跳转： 实例方法： this.$router.push()
+            字符串路径 : push('/abc')
+            对象：   push({path: '/abc'})
+
+        router实例
+            name 路由名字，可以通过name来跳转路由
+            components 可以通过name来渲染多个不同组件
+            redirect 重定向到新的地址下
+            alias： 地址的别名/ 也需要定义成路径格式
+
+            children 嵌套路由、组件渲染到父级router-view上，
+                路由path配置不需要加 /  
+
+            动态路由：
+            在path上定义：+ 匹配的key 在params上可以展示动态路由匹配到的参数 可以串连
+
+            * 通配符   
+            路由配置是有优先级关系的（从上到下）一般用于 404页面   通常放到路由配置的最下面    
+
+            eg:
+                <router-view name="test2"></router-view>
+                const router = new VueRouter({
+            routes:[
+                {
+                    path:'/test/:id/:name',
+                    component: test1,
+                    components: {
+                        'test1': test1,
+                        'test2': test2,
+                    },
+                    redirect: '/abcd',
+                    alias: ['/laowang','/laoli'],
+                    children:[
+                        {
+                            path:'abc',
+                            component: abc,
+                            children:[
+                                {
+                                    path:'ddd',
+                                    component: ddd    
+                                }
+                            ]
+                        }
+                    ],
+                    name: 'test'
+                },{
+                    path: '/*',
+                    component: notfound
+
+                }
+            ]
+        })
