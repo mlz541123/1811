@@ -431,3 +431,28 @@
                 }
             ]
         })
+-----------------------------------------------------------------------------------------------------------------------
+9-10:
+    路由：
+        路由通过query来传参
+            1、to="/abc?xyz=123"
+            2、:to="{path:'/abc',query:{xyz:1}}"
+            3、 $router.push('/abc?xyz=123')
+            3、 $router.push({path:'/abc',query:{xyz:1}})
+        params传参
+            1、:to="{name:,params:{}}"
+            2、 $router.push({name:,params:{}})
+        注： 如果要用params 传参的话必须用name跳转
+
+
+        router-link-active: 连接激活时添加的类名，可以通过active-class属性设置
+        replace属性： $router.replace()
+        无属性的的话： $router.push();
+
+        router.push     跳转添加历史记录
+        router.replace  跳转不添加历史记录
+        router.go       跳转到某一条记录
+        router.back  返回
+        router.forward  前进
+
+        router.addRoutes  动态添加路由配置
