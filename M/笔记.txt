@@ -303,6 +303,7 @@ binding的参数：name arg modifiers expression value
     类名的定义： name + -enter enter-to enter-active
                         -leave -leave-to -leave-active
 
+        transition的属性：
     appear  首次出现应用动画过渡
     mode : 必须是两个元素在切换
         out-in   先出后进    in-out  先进后出
@@ -358,8 +359,7 @@ binding的参数：name arg modifiers expression value
         components 可以通过name来渲染多个不同组件
         redirect 重定向到新的地址下
         alias： 地址的别名/ 也需要定义成路径格式
-        children 嵌套路由、组件渲染到父级router-view上，(二级路由)
-            路由path配置不需要加 /  
+        children 嵌套路由、组件渲染到父级router-view上 路由path配置不需要加 /  (二级路由)
 
     动态路由：
     在path上定义 ‘:’ + 匹配的key  
@@ -372,5 +372,29 @@ binding的参数：name arg modifiers expression value
     * 通配符   
     路由配置是有优先级关系的（从上到下）
     一般用于 404页面   通常放到路由配置的最下面
+
+--------------------------------------------------------------------------------------------------------------------
+
+    路由通过query来传参
+        1、to="/abc?xyz=123"
+        2、:to="{path:'/abc',query:{xyz:1}}"
+        3、 $router.push('/abc?xyz=123')
+        4、 $router.push({path:'/abc',query:{xyz:1}})
+    params传参
+        1、:to="{name:,params:{}}"
+        2、 $router.push({name:,params:{}})
+    注： 如果要用params 传参的话必须用name跳转
+
+    router-link-active: 连接激活时添加的类名，可以通过active-class属性设置
+    replace属性： $router.replace()
+    无属性的话： $router.push();
+
+    router.push     跳转添加历史记录
+    router.replace  跳转不添加历史记录
+    router.go       跳转到某一条记录
+    router.back     返回
+    router.forward  前进
+
+    router.addRoutes  动态添加路由配置
 
     
