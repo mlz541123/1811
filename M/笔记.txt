@@ -397,4 +397,59 @@ binding的参数：name arg modifiers expression value
 
     router.addRoutes  动态添加路由配置
 
-    
+-------------------------------------------------------------------------------------------------------
+
+    npm i vue-cli -g  安装cli 
+    npm i vue-awesome-swiper --save  swiper安装
+    启动服务器     vue run serve    vue-cli-service serve [options] [entry]
+        --open    在服务器启动时打开浏览器
+        --copy    在服务器启动时将 URL 复制到剪切版
+        --mode    指定环境模式 (默认值：development)
+        --host    指定 host (默认值：0.0.0.0)
+        --port    指定 port (默认值：8080)
+        --https   使用 https (默认值：false)
+    打包压缩    vue run build       vue-cli-service build [options] [entry|pattern]
+        --mode        指定环境模式 (默认值：production)
+        --dest        指定输出目录 (默认值：dist)
+        --modern      面向现代浏览器带自动回退地构建应用
+        --target      app | lib | wc | wc-async (默认值：app)
+        --name        库或 Web Components 模式下的名字 (默认值：package.json 中的 "name" 字段或入口文件名)
+        --no-clean    在构建项目之前不清除目标目录
+        --report      生成 report.html 以帮助分析包内容
+        --report-json 生成 report.json 以帮助分析包内容
+        --watch       监听文件变化
+
+---------------------------------------------------------------------------------------------------------------------
+
+每个导航守卫必须有一个next,不然不会跳转
+    next();
+        类似于push
+        1、path路径
+        2、对象｛path，name｝
+        3、false 》 禁止通过
+
+    全局守卫： 
+    beforeEach  ：所有路由。跳转之前触发的守卫
+    beforeResolve
+    afterEach (钩子函数)
+
+    独享守卫
+        beforeEnter
+
+    beforeRouteEnter 渲染组件之前
+    beforeRouteUpdate
+    beforeRouteLeave  离开组件之前
+
+导航守卫先后顺序：
+    导航被触发。
+    在失活的组件里调用离开守卫。
+    调用全局的 beforeEach 守卫。
+    在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。
+    在路由配置里调用 beforeEnter。
+    解析异步路由组件。
+    在被激活的组件里调用 beforeRouteEnter。
+    调用全局的 beforeResolve 守卫 (2.5+)。
+    导航被确认。
+    调用全局的 afterEach 钩子。
+    触发 DOM 更新。
+    用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数。
