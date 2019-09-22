@@ -483,3 +483,32 @@
             10.调用全局的 afterEach(to,from) 钩子
             11.触发 DOM 更新
             12.用创建好的实例调用 beforeRouteEnter(to,from,next) 守卫中传给 next 的回调函数
+--------------------------------------------------------------------------------------------------------------------
+axios:
+        vue-axios是基于vuejs 的轻度封装
+
+        安装
+            npm install --save axios vue-axios
+            import Vue from 'vue'
+            import axios from 'axios'
+            import VueAxios from 'vue-axios'
+            Vue.use(VueAxios, axios)
+
+        使用
+            Vue.axios.get(api).then((response) => {})   //全局方法
+            this.axios.get(api).then((response) => {})  //实例方法
+            this.$http.get(api).then((response) => {})  // 实例别名
+---------------------------------------------------------------------------------------------------------------
+vuex:
+        Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。
+        它采用集中式存储管理应用的所有组件的状态，
+        并以相应的规则保证状态以一种可预测的方式发生变化
+
+        什么是“状态管理模式”？
+        什么情况下我应该使用 Vuex？
+
+        Vuex VS 单纯的全局对象
+            1、Vuex 的状态存储是响应式的
+            2、为什么通过提交mutation方式改变state，是想要更明确地追踪到状态的变化
+
+        由于 store 中的状态是响应式的，在组件中调用 store 中的状态简单到仅需要在计算属性中返回即可。触发变化也仅仅是在组件的 methods 中提交 mutation。
