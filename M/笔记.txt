@@ -398,8 +398,12 @@ binding的参数：name arg modifiers expression value
     router.addRoutes  动态添加路由配置
 
 -------------------------------------------------------------------------------------------------------
+ 
+    安装命令： npm install -g @vue/cli   按照最新版本 3.X
 
-    npm i vue-cli -g  安装cli 
+    vue --version  
+    3.x命令
+
     npm i vue-awesome-swiper --save  swiper安装
     启动服务器     vue run serve    vue-cli-service serve [options] [entry]
         --open    在服务器启动时打开浏览器
@@ -419,7 +423,42 @@ binding的参数：name arg modifiers expression value
         --report-json 生成 report.json 以帮助分析包内容
         --watch       监听文件变化
 
+    vue create 项目名
+        创建好的目录结构：
+            .git 文件夹  git本地版本库 （勿动）
+            node_modules :  依赖包
+            public  ： 静态资源、 index入口文件
+            src ： 逻辑代码
+            .gitignore    :git提交时忽略的文件
+            babel.config.js    : babel配置文件
+            package.json     : npm的配置文件
+            package-lock.json  ： （勿动）
+            README.md         : 项目的帮助文档
+    
+    列出vue-cli项目中src目录每个文件夹和文件的用法
+        assets      图片
+        components  vue所有组件
+        router		vue的路由管理
+        App.vue		页面入口文件  主组件
+        main.js		程序入口文件  加载各种公共组件
+
 ---------------------------------------------------------------------------------------------------------------------
+
+    axios   vue-axios是基于vuejs 的轻度封装
+
+    安装
+    npm install --save axios vue-axios
+    import Vue from 'vue'
+    import axios from 'axios'
+    import VueAxios from 'vue-axios'
+    Vue.use(VueAxios, axios)
+
+    使用
+    Vue.axios.get(api).then((response) => {})   //全局方法
+    this.axios.get(api).then((response) => {})  //实例方法
+    this.$http.get(api).then((response) => {})  // 实例别名
+
+------------------------------------------------------------------------------------------------------------------
 
 每个导航守卫必须有一个next,不然不会跳转
     next();
@@ -429,16 +468,17 @@ binding的参数：name arg modifiers expression value
         3、false 》 禁止通过
 
     全局守卫： 
-    beforeEach  ：所有路由。跳转之前触发的守卫
-    beforeResolve
-    afterEach (钩子函数)
+        beforeEach  ：所有路由。跳转之前触发的守卫
+        beforeResolve
+        afterEach (钩子函数)
 
     独享守卫
         beforeEnter
 
-    beforeRouteEnter 渲染组件之前
-    beforeRouteUpdate
-    beforeRouteLeave  离开组件之前
+    组件里的守卫
+        beforeRouteEnter 渲染组件之前
+        beforeRouteUpdate
+        beforeRouteLeave  离开组件之前
 
 导航守卫先后顺序：
     导航被触发。
@@ -453,3 +493,48 @@ binding的参数：name arg modifiers expression value
     调用全局的 afterEach 钩子。
     触发 DOM 更新。
     用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数。
+
+------------------------------------------------------------------------------------------------------------
+
+    vuex:
+        State   => data
+        Getter => computed
+        Mutation => methods
+        Action => 异步的方法
+
+    vuex和全局对象的区别：
+        vuex的状态存储是响应式的 可以时时更新 每次更新都要提交mutation 会记录跟踪状态修改
+        全局对象是直接修改的
+
+    Vuex / 单纯的全局对象
+        1、Vuex 的状态存储是响应式的
+        2、为什么通过提交mutation方式改变state，是想要更明确地追踪到状态的变化
+
+    实例一个vuex仓库，并可修改其状态state.a
+        var store = new Vue.Store({
+			state:{
+                a: 1,
+            },
+			getters:{},
+			mutations:{
+				add(state,n){
+					state.a ++;
+                }
+            },
+			action:{},
+        })
+
+    vuex 要应用 v-model
+        需要使用 computed 的 get set
+    
+    improt {val1,val2} from './vuex' // 对象的结构赋值
+
+    Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。
+    它采用集中式存储管理应用的所有组件的状态，
+    并以相应的规则保证状态以一种可预测的方式发生变化
+
+    什么是“状态管理模式”？
+    什么情况下我应该使用 Vuex？
+
+    由于 store 中的状态是响应式的，在组件中调用 store 中的状态简单到仅需要在计算属性中返回即可。触发变化也仅仅是在组件的 methods 中提交 mutation。
+    
