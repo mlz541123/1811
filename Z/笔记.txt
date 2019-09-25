@@ -442,7 +442,7 @@
         params传参
             1、:to="{name:,params:{}}"
             2、 $router.push({name:,params:{}})
-        注： 如果要用params 传参的话必须用name跳转
+        注： 如果要用params 传参的话必须用name跳转 否则params会丢失
 
 
         router-link-active: 连接激活时添加的类名，可以通过active-class属性设置
@@ -492,7 +492,6 @@ axios:
             import Vue from 'vue'
             import axios from 'axios'
             import VueAxios from 'vue-axios'
-            Vue.use(VueAxios, axios)
 
         使用
             Vue.axios.get(api).then((response) => {})   //全局方法
