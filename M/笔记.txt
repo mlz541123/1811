@@ -9,6 +9,16 @@
     Git pull //拉取远程版本库
 
     Object.defineProperty
+   
+    vue的双向数据绑定原理是什么？
+        通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
+    
+    描述组件之间的传值
+    父组件与子组件传值
+        父组件通过标签上面定义传值
+        子组件通过props方法接受数据
+    子组件向父组件传递数据
+        子组件通过$emit方法传递参数
 
 --------------------------------------------------------------------------------------------------------
 
@@ -69,7 +79,7 @@
                 // return 表达式
                 eg:return this.jiashu1 + this.jiashu2 // 直接返回
             },
-            set(value){//有返回值
+            set(value){// 有返回值
                 console.log(value)
                 eg:this.jiashu1 = value
             }
@@ -507,8 +517,9 @@ binding的参数：name arg modifiers expression value
         全局对象是直接修改的
 
     Vuex / 单纯的全局对象
-        1、Vuex 的状态存储是响应式的
-        2、为什么通过提交mutation方式改变state，是想要更明确地追踪到状态的变化
+        Vuex 的状态存储是响应式的 更明确地追踪到状态的变化
+        
+    为什么通过提交mutation方式改变state，是想要更明确地追踪到状态的变化
 
     实例一个vuex仓库，并可修改其状态state.a
         var store = new Vue.Store({
