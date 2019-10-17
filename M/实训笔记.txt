@@ -1,0 +1,36 @@
+vue init webpack-simple 项目名 // 创建vue2.0项目
+npm i // 安装环境
+npm i --save 插件名
+npm run dev // 运行2.0
+
+vue create 项目名 // 创建3.12项目
+npm i --save 插件名
+npm run serve // 运行3.0
+
+编译webpack   // webpack --config=webpack.config.js  || webpack
+
+react需要用的依赖
+npm i webpack webpack-cli babel-loader @babel/preset-react @babel/preset-env @babel/core -D
+npm i html-webpack-plugin -D
+npm i style-loader css-loader -D
+npm i react react-dom -S
+
+<button onClick={this.search.bind(this)}>搜索</button>  // .jsx 文件写行内的语法 需要用bind绑定this实例
+
+// 获取input的value
+// 并
+// 在方法里改变一个参数的值 要用到this.setState方法
+constructor() {
+	super();
+	this.state = {
+		inpValu: '',
+	}
+}
+
+<input type="text" placeholder="请输入城市名..." class="search" onChange={this.handelChange.bind(this)} />
+
+handelChange(e) {
+	this.setState({
+		inpValu: e.target.value,
+	})
+}
