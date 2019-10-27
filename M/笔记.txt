@@ -8,6 +8,8 @@
     git push //提交远程版本库 
     Git pull //拉取远程版本库
 
+    执行回退到上一版本，使用git reset --hard HEAD^
+
     Object.defineProperty
    
     vue的双向数据绑定原理是什么？
